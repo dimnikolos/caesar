@@ -1,0 +1,384 @@
+<!doctype html>
+<html>
+<head>
+    <title>Ο κώδικας του Καίσαρα</title>
+    <meta charset="utf-8">
+    <script src="./js/websheets.js"></script>
+</head>
+<body>
+
+<h1>Κώδικας του Καίσαρα</h1>
+
+<section>
+<h2>Εισαγωγή</h2>
+
+<p> Στο μάθημα της Γ' Λυκείου Ειδικά Θέματα στο Υλικό και στα Δίκτυα Υπολογιστών οι μαθητές των ΕΠΑΛ έρχονται σε επαφή με την κρυπτογραφία και με τον κώδικα του Καίσαρα. Το θέμα αυτού του μαθησιακού πόρου είναι η υλοποίηση του κώδικα του Καίσαρα με Python. Ο λόγος που επιλέχθηκε η Python είναι πως οι μαθητές των ΕΠΑΛ διδάσκονται αυτή την γλώσσα προγραμματισμού και την εξετάζονται σε πανελλαδικό επίπεδο.
+    
+
+<aside>
+    Κώδικας του Καίσαρα σε Python
+</aside>
+
+<p> Ο κώδικας του Καίσαρα είναι κώδικας αντικατάστασης στον οποίο κάθε γράμμα του κειμένου αντικαθίσταται από κάποιο άλλο γράμμα με σταθερή απόσταση κάθε φορά στο αλφάβητο. <p>
+
+Για να υλοποίησουμε κρυπτογράφηση με τον αλγόριθμο του Καίσαρα θα πρέπει να υλοποιήσουμε την κωδικοποίηση και την αποκωδικοποίηση.
+Ας ξεκινήσουμε με την κωδικοποίηση.
+    
+<!--
+<div class='generic' text='Τα βασικά'>
+    </p>
+    <p> My <code>text</code> property determines the label on the button.</p>
+</div>
+<div class='generic' text='Grouping'>
+    I belong to the same <code>generic</code> class so we are automatically
+    grouped together.
+
+    <div class='generic active' text='Nesting'>
+        <p> And you can even nest these things!</p>
+        <p> I am initially expanded, because I also belong to the <code>active</code>
+            class.
+        </p>
+    </div>
+</div>-->
+
+</section>
+
+<section>
+<h2>Κωδικοποίηση</h2>
+
+Η λογική της κωδικοποίησης είναι να αντικατασταθεί το κάθε γράμμα με το μετατοπισμένο του.
+Θα κατασκευάσουμε μια λίστα με όλα τα γράμματα στα ελληνικά κεφαλαία.
+
+<div class='step'>
+    <p>Η λίστα των γραμμάτων</p>
+    <pre class='prettyprint'>
+        <code class='language-python' no-indent>
+            ab = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
+        </code>
+    </pre>
+</div>
+
+
+
+Αν έχεις ένα γράμμα π.χ. το <code>Λ</code> η θέση του στη λίστα <code>ab</code> μπορεί να υπολογιστεί με την εντολή index ως εξή <code>ab.index('Λ')</code>.
+
+
+<div class='step'>
+    <p>Το παρακάτω πρόγραμμα εμφανίζει τις θέσεις των γραμμάτων της λέξης ΚΑΛΗΜΕΡΑ:</p>
+    <pre class='prettyprint'>
+        <code class='language-python' no-indent>
+            ab = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
+            keimeno = 'ΚΑΛΗΜΕΡΑ'
+            for l in keimeno:
+              print(ab.index(l))
+        </code>
+    </pre>
+</div>
+
+Για να πάμε στο επόμενο γράμμα από αυτό που έχουμε θα προσθέσουμε 1 στη θέση που υπολογίσαμε πριν.
+<div class='step'>
+    <p>Το παρακάτω πρόγραμμα εμφανίζει το επόμενο γράμμα από κάθε γράμμα της λέξης ΚΑΛΗΜΕΡΑ:</p>
+    <pre class='prettyprint'>
+        <code class='language-python' no-indent>
+            ab = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
+            keimeno = 'ΚΑΛΗΜΕΡΑ'
+            for l in keimeno:
+              thesi = ab.index(l)
+              <a>neathesi = (ab.index(l) + 1) % len(ab)</a>
+              print(ab[neathesi])
+        </code>
+    </pre>
+    <div class='explanation'>
+        Η νέα θέση είναι <code>ab.index(l) + 1</code> αλλά θα πρέπει να προσέξουμε το Ω που θα πρέπει να αντικατασταθεί με το Α. Για αυτό το λόγο βάζουμε το υπόλοιπο της διαίρεσης με το μήκος της λίστας. Στη συγκεκριμένη περίπτωση το <code>ab.index('Ω')</code> είναι 23 προσθέτοντας 1 προκύπτει 24. Η πράξη <code>(ab.index(l) + 1) % len(ab)</code> θα δώσει σαν αποτέλεσμα το 0 και το <code>ab[0]</code> είναι το Α.
+    </div>
+</div>
+Αφού έχουμε τα γράμματα με τα οποία πρέπει να αντικατασταθούν τα αρχικά γράμματα μπορούμε να τα συνενώσουμε σε ένα αλφαριθμητικό που θα είναι το κωδικοποιημένο κείμενο.
+<div class='step'>
+    <pre class='prettyprint'>
+        <code class='language-python' no-indent>
+            ab = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
+            keimeno = 'ΚΑΛΗΜΕΡΑ'
+            kwdikopoiimeno = ''
+            for l in keimeno:
+              thesi = ab.index(l)
+              neathesi = (ab.index(l) + 1) % len(ab)
+              kwdikopoiimeno += ab[neathesi]
+            print(kwdikopoiimeno)
+        </code>
+    </pre>
+</div>
+
+Ας βάλουμε τη βασική λειτουργία της κωδικοποιήσης σε μια συνάρτηση με όνομα kaisaras_kwd:
+<div class='step'>
+     <pre class='prettyprint'>
+        <code class='language-python' no-indent>
+            ab = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
+            keimeno = 'ΚΑΛΗΜΕΡΑ'
+            def kaisaras_kwd(keimeno):
+                kwdikopoiimeno = ''
+                for l in keimeno:
+                    thesi = ab.index(l)
+                    neathesi = (ab.index(l) + 1) % len(ab)
+                    kwdikopoiimeno += ab[neathesi]
+                return(kwdikopoiimeno)
+            print(kaisaras_kwd(keimeno))
+        </code>
+    </pre>
+</div>
+
+Η απόσταση που έχουμε ορίσει είναι 1. Αλλά το πρόγραμμα δουλεύει και με διαφορετικές αποστάσεις. 
+Μπορούμε να την βάλουμε την απόσταση σαν όρισμα της συνάρτησης d.
+<div class='step'>
+     <pre class='prettyprint'>
+        <code class='language-python' no-indent>
+            ab = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
+            keimeno = 'ΚΑΛΗΜΕΡΑ'
+            def kaisaras_kwd(keimeno,d):
+                kwdikopoiimeno = ''
+                for l in keimeno:
+                    thesi = ab.index(l)
+                    neathesi = (ab.index(l) + d) % len(ab)
+                    kwdikopoiimeno += ab[neathesi]
+                return(kwdikopoiimeno)
+            print(kaisaras_kwd(keimeno,1))
+            <a>print(kaisaras_kwd(keimeno,2))</a>
+        </code>
+    </pre>
+    <div class='explanation'>
+        Η ίδια λέξη κωδικοποιημένη με απόσταση 2.
+    </div>
+</div>
+
+Στο τελικό βήμα ο χρήστης μπορεί να δώσει το κείμενο για κωδικοποίηση (χωρίς κενά) και την απόσταση που θέλει και να πάρει σαν αποτέλεσμα το κωδικοποιημένο κείμενο.
+<div class='step'>
+    <pre class='prettyprint'>
+        <code class='language-python' no-indent>
+            ab = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
+            keimeno = input('Δώστε κείμενο για κρυπτογράφηση: ')
+            d = int(input('Δώστε απόσταση κώδικα: '))
+            def kaisaras_kwd(keimeno,d):
+                kwdikopoiimeno = ''
+                for l in keimeno:
+                    thesi = ab.index(l)
+                    neathesi = (ab.index(l) + d) % len(ab)
+                    kwdikopoiimeno += ab[neathesi]
+                return(kwdikopoiimeno)
+            print(kaisaras_kwd(keimeno,d))
+        </code>
+    </pre>
+</div>
+<div class='generic' text='Σε μία γραμμή'>
+Αν προχωρήσετε στην Python λίγο περισσότερο θα δείτε πως η κωδικοποίηση μπορεί να γίνει σε μια γραμμή ως εξής:
+<br/>
+<pre class='prettyprint'>
+    <code>''.join([ab[(ab.index(l) + d) % len(ab)] for l in keimeno])</code>
+</pre>
+<br/>
+</div>
+</section>
+
+<section>
+<h2>Αποκωδικοποίηση</h2>
+
+Η αποκωδικοποίηση είναι η αντίστροφη διαδικασία:
+<div class='step'>
+    <pre class='prettyprint'>
+        <code class='language-python' no-indent>
+            def kaisaras_apokwd(kwdikopoiimeno,d):
+                keimeno = ''
+                for l in kwdikopoiimeno:
+                    thesi = ab.index(l)
+                    <a>neathesi = (ab.index(l) - d) % len(ab)</a>
+                    keimeno += ab[neathesi]
+                return(keimeno)            
+        </code>
+    </pre>
+    <div class='explanation'>
+        Αντί να προσθέσουμε την απόσταση, την αφαιρούμε.
+    </div>
+</div>
+
+Το τελικό πρόγραμμα είναι το εξής:
+<div class='step'>
+    <pre class='prettyprint'>
+        <code class='language-python' no-indent>
+            ab = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
+            def kaisaras_kwd(keimeno,d):
+                kwdikopoiimeno = ''
+                for l in keimeno:
+                    thesi = ab.index(l)
+                    neathesi = (ab.index(l) + d) % len(ab)
+                    kwdikopoiimeno += ab[neathesi]
+                return(kwdikopoiimeno)
+
+            def kaisaras_apokwd(kwdikopoiimeno,d):
+                keimeno = ''
+                for l in kwdikopoiimeno:
+                    thesi = ab.index(l)
+                    neathesi = (ab.index(l) - d) % len(ab)
+                    keimeno += ab[neathesi]
+                return(keimeno)            
+
+            d = int(input('Δώστε απόσταση κώδικα: '))
+            keimeno = input('Δώστε κείμενο για κρυπτογράφηση: ')
+            print(kaisaras_kwd(keimeno,d))
+            kwdikop = input('Δώστε κώδικα για αποκρυπτογράφηση: ')
+            print(kaisaras_apokwd(kwdikop,d))            
+        </code>
+    </pre>
+</div>
+Η κωδικοποίηση με μετατόπιση είναι εύκολο να αποκωδικοποιηθεί ακόμη και αν δεν ξέρουμε την απόσταση. Δείτε το παρακάτω πρόγραμμα που αποκωδικοποιεί το κωδικοποιημένο κείμενο με όλες τις αποστάσεις. 
+<div class='step'>
+    <pre class='prettyprint'>
+        <code class='language-python' no-indent>
+            ab = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
+            def kaisaras_apokwd(kwdikopoiimeno,d):
+                keimeno = ''
+                for l in kwdikopoiimeno:
+                    thesi = ab.index(l)
+                    neathesi = (ab.index(l) - d) % len(ab)
+                    keimeno += ab[neathesi]
+                return(keimeno)            
+
+            kwdikop = 'ΥΛΦΡΧΟΓΛ'
+            for d in range(24):
+                print(kaisaras_apokwd(kwdikop,d))
+        </code>
+    </pre>
+</div>
+Το αποτέλεσμα της εκτέλεσης είναι:
+<pre class='prettyprint'>
+     <code class='language-python' no-indent>
+ΥΛΦΡΧΟΓΛ
+ΤΚΥΠΦΞΒΚ
+ΣΙΤΟΥΝΑΙ
+ΡΘΣΞΤΜΩΘ
+ΠΗΡΝΣΛΨΗ
+ΟΖΠΜΡΚΧΖ
+ΞΕΟΛΠΙΦΕ
+ΝΔΞΚΟΘΥΔ
+ΜΓΝΙΞΗΤΓ
+ΛΒΜΘΝΖΣΒ
+<a>ΚΑΛΗΜΕΡΑ</a>
+ΙΩΚΖΛΔΠΩ
+ΘΨΙΕΚΓΟΨ
+ΗΧΘΔΙΒΞΧ
+ΖΦΗΓΘΑΝΦ
+ΕΥΖΒΗΩΜΥ
+ΔΤΕΑΖΨΛΤ
+ΓΣΔΩΕΧΚΣ
+ΒΡΓΨΔΦΙΡ
+ΑΠΒΧΓΥΘΠ
+ΩΟΑΦΒΤΗΟ
+ΨΞΩΥΑΣΖΞ
+ΧΝΨΤΩΡΕΝ
+ΦΜΧΣΨΠΔΜ
+ </code>
+</pre>
+
+<p>Είναι προφανές πως το αρχικό κείμενο ήταν ΚΑΛΗΜΕΡΑ.</p>
+<p>Στην επόμενη ενότητα θα αλλάζουμε την απόσταση σε κάθε γράμμα.</p>
+<div class="generic" text="Σε μια γραμμή">
+    <div class='question'>
+        <p> Πώς μπορούμε να κάνουμε την αποκωδικοποίηση σε μία γραμμή;</p>
+        <div class='hint'>
+            Θυμηθείτε την κωδικοποίηση στην προηγούμενη ενότητα.
+        </div>
+        <div class='answer hint'>
+            <pre class="prettyprint">
+                <code class="language-python" no-indent>
+                ''.join([ab[(ab.index(l) - d) % len(ab)] for l in keimeno])
+                </code>
+            </pre>
+        </div>
+    </div>
+</div>    
+</section>
+<section>
+    <h2>Κώδικας Vigenère</h2>
+    Η κρυπτογράφηση Vigenère αποτελείται από πολλούς αλγόριθμους κρυπτογράφησης του Καίσαρα με διαφορετικές τιμές μετατόπισης για κάθε κωδικοποίηση γράμματος.
+    Οι τιμές της μετατόπισης αποθηκεύονται σε ένα κλειδί που μπορεί να έχει οποιοδήποτε μέγεθος. Ας δούμε πώς διαμορφώνεται η κωδικοποίηση.
+    
+    <div class='step'>
+    <pre class='prettyprint'>
+        <code class='language-python' no-indent>
+            ab = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
+            def kaisaras_kwd(keimeno,key):
+                kwdikopoiimeno = ''
+                <a>for (i,l) in enumerate(keimeno):</a>
+                    thesi = ab.index(l)
+                    <a>d = key[i%len(key)]</a>
+                    neathesi = (ab.index(l) + d) % len(ab)
+                    kwdikopoiimeno += ab[neathesi]
+                return(kwdikopoiimeno)
+
+            key = [1,5,7,9]
+            keimeno = input('Δώστε κείμενο για κρυπτογράφηση: ')
+            print(kaisaras_kwd(keimeno,key))
+        </code>
+    </pre>
+    <div class="explanation">
+        Το i στην εντολή αυτή θα έχει τον αύξοντα αριθμό από το κάθε γράμμα του κειμένου λόγω της enumerate.
+    </div>
+    <div class="explanation">
+        Η κωδικοποίηση του συγκεκριμένου γράμματος θα έχει απόσταση που ορίζεται από το κλειδί στη θέση i, οπότε <code>key[i]</code>. Αλλά όταν τελειώνει το κλειδί θα πρέπει να ξαναρχίζει από την αρχή και για αυτό παίρνουμε το υπόλοιπο της διαίρεσης του i με το μήκος του κλειδιού len(key). Η απόσταση γίνεται <code>key[i%len(key)]</code>.
+    </div>
+</div>
+Στην περίπτωση αυτή το κλειδί είναι <code>1,5,7,9</code>, μπορείτε να δείτε στην εκτέλεση του προγράμματος αν όντως το πρώτο γράμμα κωδικοποιείται με απόσταση 1.
+π.χ.
+<pre class="prettyprint">
+    <code>
+    Δώστε κείμενο για κρυπτογράφηση: ΚΑΛΗΜΕΡΑ
+    ΛΖΣΠΝΚΩΚ
+    </code>
+</pre>
+Το πρώτο γράμμα (Κ) κωδικοποιήθηκε με απόσταση 1 σε Λ, ενώ το δεύτερο (Α) κωδικοποιήθηκε με απόσταση 5 σε Ζ.
+
+Το συνολικό πρόγραμμα κωδικοποίησης αποκωδικοποίησης διαμορφώνεται ως εξής:
+<div class='step'>
+<pre class='prettyprint'>
+<code class='language-python' no-indent>
+    ab = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'
+
+    def kaisaras_kwd(keimeno,key):
+        kwdikopoiimeno = ''
+        for (i,l) in enumerate(keimeno):
+            thesi = ab.index(l)
+            d = key[i%len(key)]
+            neathesi = (ab.index(l) + d) % len(ab)
+            kwdikopoiimeno += ab[neathesi]
+        return(kwdikopoiimeno)
+
+    def kaisaras_apokwd(kwdikopoiimeno,key):
+        keimeno = ''
+        for (i,l) in enumerate(kwdikopoiimeno):
+            thesi = ab.index(l)
+            d = key[i%len(key)]
+            neathesi = (ab.index(l) - d]) % len(ab)
+            keimeno += ab[neathesi]
+        return(keimeno)            
+
+    key = [1,5,7,9]
+    keimeno = input('Δώστε κείμενο για κρυπτογράφηση: ')
+    print(kaisaras_kwd(keimeno,key))
+    kwdikop = input('Δώστε κώδικα για αποκρυπτογράφηση: ')
+    print(kaisaras_apokwd(kwdikop,key))
+</code>
+</pre>
+</div>
+
+
+
+</section>
+<section>
+    <h2>Βιβλιογραφία</h2>
+    <ol>
+    <li/><a href="http://ebooks.edu.gr/new/books-pdf.php?course=DSEPAL-C233">Ειδικά θέματα στο Υλικό και στα Δίκτυα Υπολογιστών</a><br/>
+    <li/><a href="https://el.wikipedia.org/wiki/%CE%9A%CF%8E%CE%B4%CE%B9%CE%BA%CE%B1%CF%82_%CF%84%CE%BF%CF%85_%CE%9A%CE%B1%CE%AF%CF%83%CE%B1%CF%81%CE%B1">Κώδικας του Καίσαρα (Wikipedia)</a><br/>
+    <li/><a href="https://el.wikipedia.org/wiki/%CE%91%CE%BB%CE%B3%CF%8C%CF%81%CE%B9%CE%B8%CE%BC%CE%BF%CF%82_%CE%BA%CF%81%CF%85%CF%80%CF%84%CE%BF%CE%B3%CF%81%CE%AC%CF%86%CE%B7%CF%83%CE%B7%CF%82_Vigen%C3%A8re">Αλγόριθμος κρυπτογράφησης Vigenère (Wikipedia)</a><br/>
+</section>
+<footer>
+    <p><a href="https://twitter.com/dnikolos">@dnikolos</a>&nbsp;Made with <a href="https://boukeas.github.io/websheets">websheets</a> by <a href="https://github.com/boukeas">boukeas</a></p>
+</footer>
+</body>
+</html>

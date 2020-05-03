@@ -1,0 +1,617 @@
+/*
+    general
+*/
+
+@keyframes fadein {
+    from {opacity:0;}
+    to {opacity:1;}
+}
+
+.visible {
+    animation-name: fadein;
+    animation-duration: 1s;
+}
+
+body {
+    margin: 0;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 400;
+    font-size: 12pt;
+    text-align: justify;
+}
+
+/*
+#progress {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f9f9f9;
+    text-align: center;
+    padding-top: 18px;
+    z-index: 101;
+}
+
+#progress.done {
+    animation: fade 1s linear;
+}
+
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(359deg);}
+}
+
+@keyframes fade {
+    from {opacity:1;}
+    to {opacity:0;}
+}
+
+#progress #indicator {
+    background-image: url('icons/loading.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 86px;
+    animation: spin 3s alternate infinite ease-in-out;
+}
+*/
+
+.note {
+    font-size: 11pt;
+}
+
+:focus {outline: none;}
+::-moz-focus-inner {border:0;}
+
+/*
+    header
+*/
+
+header {
+    padding: 12px 0px 12px 120px;
+}
+
+header h1 {
+    font-family: 'Ubuntu Condensed', sans-serif;
+    color: rgb(255, 255, 255);
+    padding-bottom: 6px;
+    border-bottom: 1px solid white;
+    margin: 0;
+}
+
+.header-container {
+    margin: 0 0 12px 0;
+    background-color: rgb(64, 64, 64);
+    z-index: 100;
+}
+
+.header-container.fixed {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    border-bottom: 8px solid rgb(255, 255, 255);
+}
+
+.header-container.fixed + div.page {
+    /* this depends on the height of the header-container */
+    margin-top: 150px;
+}
+
+div.page {
+    padding-left: 120px;
+    width: 60%;
+    min-width: 500px;
+    max-width: 800px;
+}
+
+/*
+    footer
+*/
+
+footer {
+    font-size: 11pt;
+    padding: 24px 24px 24px 120px;
+}
+
+footer a {
+    text-decoration: none;
+    color: rgb(222, 222, 192);
+}
+
+footer h3 + p {
+    margin-top: -12px;
+}
+
+.footer-container {
+    padding: 0;
+    margin: 0;
+    background-color: rgb(64, 64, 64);
+}
+
+#pythonies {
+    border-bottom: 1px solid rgb(222, 222, 222);
+}
+
+/*
+    header & footer
+*/
+
+header, footer {
+    color: rgb(222, 222, 222);
+    width: 60%;
+    min-width: 500px;
+    max-width: 800px;
+}
+
+/*
+    section headings
+*/
+
+div.section-heading {
+    color: rgb(255, 255, 255);
+    padding-top: 12px;
+}
+
+div.section-heading h2, div.section-heading h4 {
+    margin: 0;
+}
+
+div.section-heading h4 {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 300;
+}
+
+div.section-heading h2 {
+    font-family: 'Ubuntu Condensed', sans-serif;
+    font-weight: 700;
+}
+
+/*
+    step numbering
+*/
+
+section {
+    position: relative;
+}
+
+section > div.step {
+    position: relative;
+}
+
+div.step-heading {
+    position: relative;
+    padding: 1em 0 1em 0;
+    border-bottom: 2px solid rgb(0, 120, 128);
+    cursor: pointer;
+}
+
+div.step-heading h3 {
+    display: inline;
+    font-family: 'Ubuntu Condensed', sans-serif;
+    font-size: 125%;
+    font-weight: 400;
+    color: rgb(0, 120, 128);
+    cursor: inherit;
+}
+
+div.step-heading button {
+    position: absolute;
+    left: -32px;
+    width: 16px;
+    height: 16px;
+    padding: 8px;
+    border: none;
+    background-color: transparent;
+    margin-top: 0.5em;
+    cursor: inherit;
+}
+
+div.step-heading.expanded button {
+    background-image: url('icons/down.svg');
+}
+
+div.step-heading.expanded + div.step {
+    display: block;
+}
+
+div.step-heading:not(.expanded) button {
+    background-image: url('icons/right.svg');
+}
+
+div.step-heading:not(.expanded) + div.step {
+    display: none;
+}
+
+/*
+    navigation buttons
+*/
+
+nav {
+    margin-top: 36px;
+}
+
+nav:after {
+    display: block;
+    content: '.';
+    visibility: hidden;
+    clear: both;
+}
+
+.nav-button {
+    font-family: 'Ubuntu Condensed', sans-serif;
+    color: rgb(0, 128, 128);
+    border: none;
+    background: none;
+    height: 48px;
+}
+
+.nav-button:disabled {
+    filter: grayscale(100%);
+    filter: opacity(25%);
+}
+
+.prev-button {
+    float: left;
+    padding: 12px;
+}
+
+.next-button {
+    float: right;
+    padding: 12px;
+}
+
+.next-button:after {
+    margin-left: 8px;
+    content: url('icons/next.svg');
+    vertical-align: -40%;
+}
+
+.prev-button:before {
+    margin-right: 8px;
+    content: url('icons/prev.svg');
+    vertical-align: -40%;
+}
+
+.next-button:hover:not([disabled]):after {
+    content: url('icons/next-inverted.svg');
+}
+
+.prev-button:hover:not([disabled]):before {
+    content: url('icons/prev-inverted.svg');
+}
+
+/*
+    code (additional to prettify.css)
+*/
+
+/* don't remember why I put this here, but it messes with the box's shadow...
+pre.prettyprint {
+    overflow: hidden;
+}
+*/
+
+pre.linenums:not([mock-linenums]) li {
+    list-style-type: decimal;
+}
+
+pre.linenums[mock-linenums] li {
+    list-style-type: none;
+}
+
+pre li.explained {
+    background-color: rgb(232, 255, 255);
+}
+
+pre code, pre li {
+    position: relative;
+}
+
+pre code del, pre code ins, pre code mark {
+    text-decoration: none;
+    background: none;
+}
+
+pre li.del:not(.inline), pre code del.inline {
+    background-color: rgb(224, 142, 76);
+}
+
+pre li.ins:not(.inline), pre code ins.inline {
+    background-color: rgb(76, 224, 142);
+}
+
+pre li.mark:not(.inline), pre code mark.inline {
+    background-color: rgb(224, 224, 76);
+}
+
+pre code a {
+    cursor: default;
+    text-decoration: underline dotted;
+}
+
+pre li.del::before, pre li.ins::before, pre li.mark::before, pre code a::before {
+    position: absolute;
+    left: -24px;
+    /* http://zerosixthree.se/vertical-align-anything-with-just-3-lines-of-css/ */
+    top: 50%;
+    transform: translateY(-9px);
+}
+
+pre li.ins::before {
+    content: url(icons/plus.svg);
+}
+
+pre li.del::before {
+    content: url(icons/minus.svg);
+}
+
+pre li.mark::before {
+    content: url(icons/gps.svg);
+}
+
+pre code a::before {
+    content: url(icons/cursor.svg);
+}
+
+div.code-container, div.sidenote-container {
+    position: relative;
+}
+
+/* displays explanations as sidenotes */
+body.marginnotes div.sidenote-group {
+    position: absolute;
+    left: 100%;
+    top: 0px;
+    margin-left: 16px;
+    width: 240px;
+}
+
+div.sidenote-group img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+/**/
+
+div.sidenote-group .explanation, div.sidenote-group aside {
+    padding: 6px 16px 6px 16px;
+    margin: 0;
+    color: rgb(112, 112, 112);
+    font-weight: 300;
+}
+
+div.sidenote-group .explanation.explained {
+    background-color: rgb(232, 255, 255);
+}
+
+/*
+    groups and specifics: hints, questions, concepts
+*/
+
+.group-container::before { /* , .sidenote-group::before { */
+    display: block;
+    position: absolute;
+    right: 100%;
+    margin: 12px 8px;
+}
+
+.question-container::before {
+    content: url('icons/compose.svg');
+}
+
+.hint-container::before {
+    content: url('icons/chat.svg');
+}
+
+.generic-container::before {
+    content: url('icons/focus.svg');
+}
+
+/*
+.sidenote-group::before {
+    content: url('icons/caution.svg');
+    margin-top: 0;
+}
+*/
+
+/* group buttons */
+
+.group-button {
+    position: relative;
+    font-family: 'Ubuntu Condensed', sans-serif;
+    border: none;
+    /* border-bottom: 4px solid transparent;*/
+    padding: 6px 18px 6px 18px;
+    margin: 12px 8px 0 0;
+    box-sizing: content-box;
+    border-radius: 5px;
+    filter: grayscale(50%);
+    filter: opacity(50%);
+}
+
+.group-button.active {
+    margin-bottom: 0;
+    border-bottom: 4px solid orange;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    filter: grayscale(0%);
+    filter: opacity(100);
+}
+
+.group-button:not(.active) {
+    /* replaces the 4px orange bottom border of an active button with a margin */
+    border-bottom: none;
+    margin-bottom: 4px;
+}
+
+.group-button.active:hover {
+    filter: grayscale(50%);
+    filter: opacity(50%);
+}
+
+.group-button:not(.active):hover {
+    filter: grayscale(0%);
+    filter: opacity(100);
+}
+
+/*
+.group-button[active]::after {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    margin-left: -20px;
+    content: url(icons/point.svg);
+}
+*/
+
+/* general */
+
+.group-element { /* .hint, .question, .concepts */
+    position: relative;
+    /* padding-left and -right set to 0 to have sidenotes correctly placed */
+    padding: 12px 0 12px 16px;
+    box-sizing: content-box;
+    /* this is the distance between the element and the group buttons */
+    margin-top: 0px;
+    /* necessary if we want a shadow below the code segments in a group element
+       https://stackoverflow.com/questions/3032856/is-it-possible-to-set-the-stacking-order-of-pseudo-elements-below-their-parent-e */
+    z-index: 1;
+}
+
+.group-element p {
+        padding: 0;
+        padding-right: 16px;
+        margin-top: 0;
+        margin-bottom: 6px;
+}
+
+/* coloring scheme */
+
+.hint, .hint-button {
+    background-color: rgb(232, 255, 232);
+}
+
+.question, .question-button {
+    background-color: rgb(255, 255, 232);
+}
+
+.generic, .generic-button {
+    background-color: rgb(232, 255, 255);
+}
+
+/* question-specific */
+
+fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+    /* this left padding is to accomodate the input button */
+    padding-left: 30px;
+}
+
+div.question input {
+    margin-top: 0;
+    position: absolute;
+    left: -30px;
+}
+
+div.question label {
+    display: block;
+    padding: 0.5em 1em 0.5em 1em;
+    position: relative;
+    /* code shadow fix */
+    z-index: 1;
+}
+
+div.question label.highlighted:not([correct]) {
+    background-color: rgb(255, 192, 192);
+}
+
+div.question label.highlighted[correct] {
+    background-color: rgb(192, 255, 192);
+}
+
+div.question label .feedback[sidenote] {
+    position: absolute;
+    left: 100%;
+    top: 0px;
+    margin-left: 16px;
+    width: 240px;
+
+    padding: 6px 16px 6px 16px;
+    color: rgb(112, 112, 112);
+    font-weight: 300;
+}
+
+div.question label .feedback:not([sidenote]) {
+    padding: 8px 0px;
+    color: rgb(112, 112, 112);
+    font-weight: 300;
+}
+
+/* question-specific: feedback buttons */
+
+.feedback-button {
+    position: relative;
+    font-family: 'Ubuntu Condensed', sans-serif;
+    color: rgb(0, 164, 128);
+    border: 2px solid rgb(0, 164, 128);
+    border-radius: 20px;
+    background: none;
+    padding: 6px 18px 6px 18px;
+    margin: 12px 8px 0px 32px;
+}
+
+.feedback-button:hover:not([disabled]), .feedback-button[active] {
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 164, 128);
+}
+
+.feedback-button:disabled {
+    filter: grayscale(100%);
+    filter: opacity(25%);
+}
+
+/* use this as a starting point,
+   if you want feedback buttons located on the side
+
+.feedback-button {
+    position: absolute;
+    right: 0px;
+    top: -6px;
+    font-family: 'Ubuntu Condensed', sans-serif;
+    color: rgb(0, 164, 128);
+    border: 1px dotted #000;
+    background: none;
+    padding: 6px 18px 6px 18px;
+    margin: 12px 8px 12px 0px;
+}
+
+.feedback-button:hover:not([disabled]), .feedback-button[active] {
+    display: block;
+}
+
+.feedback-button:disabled {
+    display: none;
+}
+*/
+
+/*
+    repl
+*/
+
+/*
+#repl {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    width: 50%;
+    border: 2px dashed #ff0000;
+    min-width: 500px;
+    height: 80%;
+    min-height: 500px;
+    margin-left: 32px;
+}
+*/
